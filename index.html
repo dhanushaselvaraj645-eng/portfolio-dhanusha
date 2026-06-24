@@ -1,283 +1,842 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dhanusha S | Python Full Stack Developer</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dhanusha S | Python Full Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <style>
+    :root {
+      --navy: #0A0F2C;
+      --navy-mid: #1E2545;
+      --gold: #C9A84C;
+      --gold-light: #E8C96A;
+      --cream: #F5F0E8;
+      --white: #FFFFFF;
+      --text-muted: #9DA3B8;
+      --card-bg: rgba(255,255,255,0.04);
+      --card-border: rgba(201,168,76,0.18);
+    }
 
-    <link rel="stylesheet" href="style.css">
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,15,44,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .navbar {
+      max-width: 1200px; margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+    .nav-links { list-style: none; display: flex; gap: 2rem; }
+    .nav-links a {
+      text-decoration: none; color: var(--text-muted);
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .menu-btn { display: none; cursor: pointer; color: var(--gold); font-size: 1.3rem; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 7rem 2rem 4rem;
+      max-width: 1200px; margin: 0 auto;
+      gap: 4rem;
+    }
+    .hero-content { flex: 1; }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid var(--card-border);
+      color: var(--gold);
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .hero-content h1 span { color: var(--gold); }
+    .hero-content h2 {
+      font-size: 1.1rem; font-weight: 400;
+      color: var(--text-muted); margin-bottom: 1.5rem;
+      letter-spacing: 1px;
+    }
+    .hero-content p {
+      color: #b0b6cc; max-width: 480px;
+      margin-bottom: 2.5rem; line-height: 1.8;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.75rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.3s, transform 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 0.75rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-outline:hover { background: rgba(201,168,76,0.1); transform: translateY(-2px); }
+
+    .hero-image {
+      flex-shrink: 0;
+      position: relative;
+    }
+    .hero-image::before {
+      content: '';
+      position: absolute; inset: -6px;
+      border-radius: 50%;
+      background: conic-gradient(var(--gold), transparent, var(--gold));
+      animation: spin 8s linear infinite;
+      z-index: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-image img {
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative; z-index: 1;
+      border: 4px solid var(--navy);
+    }
+    .hero-placeholder {
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: var(--navy-mid);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem; font-weight: 700;
+      color: var(--gold);
+      position: relative; z-index: 1;
+      border: 4px solid var(--navy);
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      position: relative; display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      height: 3px;
+      background: var(--gold);
+      margin-top: 0.4rem;
+      border-radius: 2px;
+      animation: expand 1s ease forwards;
+      transform-origin: left;
+    }
+    @keyframes expand { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    .section-sub {
+      color: var(--text-muted); font-size: 0.9rem;
+      margin-bottom: 3rem; margin-top: 0.5rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .about-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 2rem;
+      backdrop-filter: blur(8px);
+    }
+    .about-card.full { grid-column: 1 / -1; }
+    .about-card h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold); font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+    .about-card p { color: #b0b6cc; line-height: 1.9; }
+    .info-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 0.75rem; color: #b0b6cc;
+    }
+    .info-row i { color: var(--gold); width: 18px; }
+
+    /* ── EXPERIENCE ── */
+    .exp-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 12px 12px 0;
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .exp-badge {
+      display: inline-block;
+      background: rgba(201,168,76,0.15);
+      color: var(--gold);
+      font-size: 0.72rem; letter-spacing: 1.5px;
+      text-transform: uppercase; padding: 0.25rem 0.75rem;
+      border-radius: 20px; margin-bottom: 0.75rem;
+    }
+    .exp-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; margin-bottom: 0.4rem;
+    }
+    .exp-card .company { color: var(--gold); font-size: 0.9rem; font-weight: 500; }
+    .exp-card p { color: #b0b6cc; margin-top: 0.75rem; font-size: 0.93rem; }
+
+    /* ── EDUCATION ── */
+    .edu-grid { display: grid; gap: 1.25rem; margin-top: 3rem; }
+    .edu-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.75rem 2rem;
+      display: flex; gap: 1.5rem; align-items: flex-start;
+    }
+    .edu-icon {
+      width: 48px; height: 48px; flex-shrink: 0;
+      background: rgba(201,168,76,0.12);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 1.1rem;
+    }
+    .edu-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .edu-card .inst { color: var(--text-muted); font-size: 0.88rem; }
+    .edu-card .year {
+      color: var(--gold); font-size: 0.8rem;
+      font-weight: 500; margin-top: 0.35rem;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 3rem;
+    }
+    .skill-pill {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.65rem 1.4rem;
+      font-size: 0.88rem; font-weight: 500;
+      color: var(--cream);
+      transition: border-color 0.3s, background 0.3s, transform 0.2s;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .skill-pill i { color: var(--gold); font-size: 0.9rem; }
+    .skill-pill:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.08);
+      transform: translateY(-2px);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 2rem;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold);
+      box-shadow: 0 12px 40px rgba(201,168,76,0.12);
+    }
+    .project-tag {
+      font-size: 0.72rem; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .project-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; margin-bottom: 0.75rem;
+    }
+    .project-card p { color: #b0b6cc; font-size: 0.9rem; flex: 1; }
+    .project-tech {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      margin-top: 1.25rem;
+    }
+    .tech-tag {
+      background: rgba(201,168,76,0.1);
+      color: var(--gold);
+      font-size: 0.72rem; padding: 0.2rem 0.6rem;
+      border-radius: 4px; font-weight: 500;
+    }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      color: var(--gold); text-decoration: none;
+      font-size: 0.85rem; font-weight: 500;
+      margin-top: 1.25rem;
+      transition: gap 0.2s;
+    }
+    .project-link:hover { gap: 0.7rem; }
+
+    /* ── CERTIFICATIONS ── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .cert-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .cert-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+    .cert-icon {
+      width: 52px; height: 52px; margin: 0 auto 1rem;
+      background: rgba(201,168,76,0.12);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 1.3rem;
+    }
+    .cert-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .cert-card .issuer { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 1rem; }
+    .cert-btn {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 0.4rem 1.1rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .cert-btn:hover { background: rgba(201,168,76,0.15); }
+
+    /* ── CONTACT ── */
+    .contact-wrapper {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; margin-top: 3rem; align-items: start;
+    }
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; margin-bottom: 1.5rem;
+    }
+    .contact-item {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .contact-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+    }
+    .contact-item p { color: #b0b6cc; font-size: 0.92rem; }
+    .contact-item span { color: var(--text-muted); font-size: 0.78rem; display: block; }
+    .social-row { display: flex; gap: 1rem; margin-top: 2rem; }
+    .social-btn {
+      width: 44px; height: 44px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s, border-color 0.3s, background 0.3s;
+    }
+    .social-btn:hover { color: var(--gold); border-color: var(--gold); background: rgba(201,168,76,0.08); }
+    .contact-right {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px; padding: 2rem;
+    }
+    .contact-right h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; margin-bottom: 1.25rem;
+    }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { font-size: 0.82rem; color: var(--text-muted); display: block; margin-bottom: 0.4rem; }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .submit-btn {
+      width: 100%;
+      background: var(--gold);
+      color: var(--navy);
+      border: none; border-radius: 8px;
+      padding: 0.85rem;
+      font-size: 0.9rem; font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .submit-btn:hover { background: var(--gold-light); }
+
+    /* ── DIVIDER ── */
+    .divider { border: none; border-top: 1px solid var(--card-border); margin: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2rem;
+      color: var(--text-muted); font-size: 0.82rem;
+    }
+    footer span { color: var(--gold); }
+
+    /* ── MOBILE NAV ── */
+    .mobile-nav {
+      display: none;
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(10,15,44,0.98);
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .mobile-nav a:hover { color: var(--gold); }
+    .mobile-nav-close {
+      position: absolute; top: 1.5rem; right: 2rem;
+      font-size: 1.5rem; color: var(--gold); cursor: pointer;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .menu-btn { display: block; }
+      .hero {
+        flex-direction: column-reverse;
+        text-align: center; padding-top: 6rem;
+      }
+      .hero-content p { margin: 0 auto 2.5rem; }
+      .hero-btns { justify-content: center; }
+      .hero-image img, .hero-placeholder { width: 200px; height: 200px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-card.full { grid-column: 1; }
+      .contact-wrapper { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <header>
-        <nav class="navbar">
-            <div class="logo">Dhanusha S</div>
+<!-- NAVBAR -->
+<header>
+  <nav class="navbar">
+    <div class="logo">Dhanusha S</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="menu-btn" onclick="openMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
+</header>
 
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#certifications">Certificates</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-close" onclick="closeMenu()"><i class="fas fa-times"></i></div>
+  <a href="#home" onclick="closeMenu()">Home</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#experience" onclick="closeMenu()">Experience</a>
+  <a href="#skills" onclick="closeMenu()">Skills</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#certifications" onclick="closeMenu()">Certifications</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
 
-            <div class="menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
-    </header>
+<!-- HERO -->
+<section id="home">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">✦ Available for Opportunities</div>
+      <h1>Dhanusha <span>S</span></h1>
+      <h2>Python Full Stack Developer</h2>
+      <p>Passionate about building modern, responsive and user-friendly web applications using Python, Django, HTML, CSS, JavaScript, MySQL and SQL.</p>
+      <div class="hero-btns">
+        <a href="DHANUSHA S.pdf" class="btn-primary"><i class="fas fa-download"></i> Download Resume</a>
+        <a href="#projects" class="btn-outline">View Projects</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-placeholder">DS</div>
+    </div>
+  </div>
+</section>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+<hr class="divider"/>
 
-        <div class="hero-content">
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <h2 class="section-title">About Me</h2>
+    <p class="section-sub">A little about who I am</p>
+    <div class="about-grid">
+      <div class="about-card full">
+        <h3><i class="fas fa-user" style="margin-right:0.5rem;"></i> My Story</h3>
+        <p>I am Dhanusha S, a passionate Python Full Stack Developer from Salem, Tamil Nadu. I completed my B.Com Computer Applications at CMS College of Science and Commerce, Coimbatore, and completed a Python Full Stack Developer course at Login360, Chennai — gaining hands-on experience in building responsive websites and web applications. I am currently working as a Python Full Stack Developer at E2E Networks, gaining real-time project experience. I enjoy learning new technologies and crafting elegant digital solutions.</p>
+      </div>
+      <div class="about-card">
+        <h3><i class="fas fa-info-circle" style="margin-right:0.5rem;"></i> Personal Info</h3>
+        <div class="info-row"><i class="fas fa-envelope"></i> dhanusha.selvaraj05@gmail.com</div>
+        <div class="info-row"><i class="fas fa-map-marker-alt"></i> Salem, Tamil Nadu</div>
+        <div class="info-row"><i class="fas fa-briefcase"></i> Python Full Stack Developer</div>
+        <div class="info-row"><i class="fas fa-graduation-cap"></i> B.Com Computer Applications</div>
+      </div>
+      <div class="about-card">
+        <h3><i class="fas fa-heart" style="margin-right:0.5rem;"></i> What I Love</h3>
+        <p style="color:#b0b6cc;">Building clean, performant web applications. Crafting elegant UI designs. Solving real-world problems through code. Constantly learning new frameworks and technologies.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <h3>Hello, I'm</h3>
+<hr class="divider"/>
 
-            <h1>Dhanusha S</h1>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <h2 class="section-title">Experience</h2>
+    <p class="section-sub">My professional journey so far</p>
 
-            <h2>Python Full Stack Developer</h2>
+    <div style="margin-top:3rem;">
+      <div class="exp-card">
+        <div class="exp-badge">Current · Full-time</div>
+        <h3>Python Full Stack Developer</h3>
+        <div class="company">E2E IT Ltd</div>
+        <p>Working on real-time projects as a Python Full Stack Developer — building and maintaining web applications using Python, Django, and modern frontend technologies. Collaborating with cross-functional teams to deliver production-ready features.</p>
+      </div>
 
-            <p>
-                Passionate about building modern, responsive and
-                user-friendly web applications using Python,
-                Django, HTML, CSS, JavaScript , MySQL and SQL.
-            </p>
+      <div class="exp-card">
+        <div class="exp-badge">Internship</div>
+        <h3>Intern — Business Operations & Workflow</h3>
+        <div class="company">Leap Green Energy Ltd, Coimbatore</div>
+        <p>Completed internship training and gained practical exposure to workflow processes, business communication and professional operations in the energy sector.</p>
+      </div>
 
-            <div class="hero-buttons">
-                <a href="DHANUSHA S.pdf" class="btn">Download Resume</a>
-                <a href="#projects" class="btn btn-outline">View Projects</a>
-            </div>
+      <div class="exp-card">
+        <div class="exp-badge">Training</div>
+        <h3>Python Full Stack Developer Training</h3>
+        <div class="company">Login360, Chennai</div>
+        <p>Intensive hands-on training covering Python, Django, HTML, CSS, JavaScript, MySQL, and SQL. Built multiple real-world projects and developed a strong foundation in full stack development.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<hr class="divider"/>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <h2 class="section-title">Education</h2>
+    <p class="section-sub">Academic background</p>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div>
+          <h3>B.Com Computer Applications</h3>
+          <div class="inst">CMS College of Science and Commerce, Coimbatore</div>
+          <div class="year">2022 – 2025</div>
         </div>
-
-        <div class="hero-image">
-            <img src="./photo.jpeg"
-                alt="Profile">
+      </div>
+      <div class="edu-card">
+        <div class="edu-icon"><i class="fas fa-school"></i></div>
+        <div>
+          <h3>Higher Secondary Education</h3>
+          <div class="inst">Sri Ragavendra Matriculation Higher Secondary School</div>
+          <div class="year">2021 – 2022</div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    </section>
+<hr class="divider"/>
 
-    <!-- About -->
-    <section id="about" class="section">
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <h2 class="section-title">Skills</h2>
+    <p class="section-sub">Technologies I work with</p>
+    <div class="skills-grid">
+      <div class="skill-pill"><i class="fab fa-html5"></i> HTML5</div>
+      <div class="skill-pill"><i class="fab fa-css3-alt"></i> CSS3</div>
+      <div class="skill-pill"><i class="fab fa-js"></i> JavaScript</div>
+      <div class="skill-pill"><i class="fab fa-python"></i> Python</div>
+      <div class="skill-pill"><i class="fas fa-layer-group"></i> Django</div>
+      <div class="skill-pill"><i class="fas fa-database"></i> SQL</div>
+      <div class="skill-pill"><i class="fas fa-database"></i> MySQL</div>
+      <div class="skill-pill"><i class="fab fa-github"></i> GitHub</div>
+      <div class="skill-pill"><i class="fas fa-mobile-alt"></i> Responsive Design</div>
+      <div class="skill-pill"><i class="fas fa-server"></i> REST APIs</div>
+    </div>
+  </div>
+</section>
 
-        <h2 class="section-title">About Me</h2>
+<hr class="divider"/>
 
-        <div class="about-container">
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <h2 class="section-title">Projects</h2>
+    <p class="section-sub">Things I've built</p>
+    <div class="projects-grid">
 
-            <div class="about-card">
-
-                <p>
-                    I am Dhanusha S, a passionate Python Full Stack Developer.
-                    I completed my B.Com Computer Applications at CMS College
-                    of Science and Commerce, Coimbatore.
-
-                    I completed Python Full Stack Developer course at
-                    Login360, Chennai and gained hands-on experience in
-                    building responsive websites and web applications.
-
-                    I enjoy learning new technologies and creating elegant
-                    digital solutions.
-                </p>
-
-            </div>
-
+      <div class="project-card">
+        <div class="project-tag">✦ UI Design · Live</div>
+        <h3>Accessories Website UI</h3>
+        <p>A modern, responsive accessories e-commerce UI featuring elegant product displays, smooth navigation, and a refined aesthetic tailored for fashion-forward shoppers.</p>
+        <div class="project-tech">
+          <span class="tech-tag">HTML5</span>
+          <span class="tech-tag">CSS3</span>
+          <span class="tech-tag">JavaScript</span>
         </div>
+        <a href="https://dhanushaselvaraj645-eng.github.io/Accessories-UI/" target="_blank" class="project-link">
+          View Live <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
 
-    </section>
-
-    <!-- Education -->
-    <section id="education" class="section">
-
-        <h2 class="section-title">Education</h2>
-
-        <div class="timeline">
-
-            <div class="timeline-item">
-                <h3>B.Com Computer Applications</h3>
-                <p>CMS College of Science and Commerce, Coimbatore</p>
-                <span>2022 - 2025</span>
-            </div>
-
-            <div class="timeline-item">
-                <h3>Higher Secondary Education</h3>
-                <p>Sri Ragavendra Matriculation Higher Secondary School</p>
-                <span>2021 - 2022</span>
-            </div>
-
+      <div class="project-card">
+        <div class="project-tag">✦ UI Design · Live</div>
+        <h3>Boutique Website UI</h3>
+        <p>A responsive boutique website with a modern UI, curated collections section, and an elegant design language that captures the essence of premium fashion retail.</p>
+        <div class="project-tech">
+          <span class="tech-tag">HTML5</span>
+          <span class="tech-tag">CSS3</span>
+          <span class="tech-tag">JavaScript</span>
         </div>
+        <a href="https://dhanushaselvaraj645-eng.github.io/Boutique_UI-desgin/index.html" target="_blank" class="project-link">
+          View Live <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
 
-    </section>
-
-    <!-- Skills -->
-    <section id="skills" class="section">
-
-        <h2 class="section-title">Skills</h2>
-
-        <div class="skills-grid">
-
-            <div class="skill-card">HTML5</div>
-            <div class="skill-card">CSS3</div>
-            <div class="skill-card">JavaScript</div>
-            <div class="skill-card">Python</div>
-            <div class="skill-card">Django</div>
-            <div class="skill-card">SQL</div>
-            <div class="skill-card">MySQL</div>
-            <div class="skill-card">GitHub</div>
-
+      <div class="project-card">
+        <div class="project-tag">✦ UI Design · Live</div>
+        <h3>Skin & Hair Care UI</h3>
+        <p>A sleek, responsive beauty and wellness website UI featuring a clean layout, product showcases, and a calming aesthetic designed for the skincare and hair care niche.</p>
+        <div class="project-tech">
+          <span class="tech-tag">HTML5</span>
+          <span class="tech-tag">CSS3</span>
+          <span class="tech-tag">JavaScript</span>
         </div>
+        <a href="https://dhanushaselvaraj645-eng.github.io/Skin-Hair_Care/" target="_blank" class="project-link">
+          View Live <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
 
-    </section>
-
-    <!-- Projects -->
-    <section id="projects" class="section">
-
-        <h2 class="section-title">Projects</h2>
-
-        <div class="project-grid">
-
-            <div class="project-card">
-                <h3>Boutique Website UI Desgin </h3>
-
-                <p>
-                    Responsive boutique website with modern UI,
-                    collections section and elegant design.
-                </p>
-            </div>
-
-            <div class="project-card">
-                <h3>Skin care & Hair care UI Desgin </h3>
-
-                <p>Responsive skin care & hair care website with modern UI,
-                    collections section and elegant design.
-                    
-                </p>
-            </div>
-
-            <div class="project-card">
-                <h3>Workflow Management System</h3>
-
-                <p>
-                    Developed using VB.NET and SQL Server
-                    for workflow automation.
-                </p>
-            </div>
-
+      <div class="project-card">
+        <div class="project-tag">✦ Full Stack</div>
+        <h3>Workflow Management System</h3>
+        <p>Developed a workflow automation system using VB.NET and SQL Server — enabling streamlined task assignment, status tracking, and business process management.</p>
+        <div class="project-tech">
+          <span class="tech-tag">VB.NET</span>
+          <span class="tech-tag">SQL Server</span>
         </div>
+      </div>
 
-    </section>
+    </div>
+  </div>
+</section>
 
-    <!-- Certifications -->
-    <section id="certifications" class="section">
+<hr class="divider"/>
 
-        <h2 class="section-title">Certifications</h2>
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-inner">
+    <h2 class="section-title">Certifications</h2>
+    <p class="section-sub">Credentials & achievements</p>
+    <div class="cert-grid">
 
-        <div class="certificate-grid">
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fab fa-python"></i></div>
+        <h3>Python Full Stack Development</h3>
+        <div class="issuer">Login360, Chennai</div>
+        <a href="./login360.jpeg" target="_blank" class="cert-btn">View Certificate</a>
+      </div>
 
-            <div class="certificate-card">
-                <h3>Python Full Stack Development</h3>
-                <p>Login360, Chennai</p>
-                <a href="./login360.jpeg"target="_blank"class="cert-btn"> View Certificate </a>
-            </div>
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fas fa-award"></i></div>
+        <h3>Infosys BPM Training</h3>
+        <div class="issuer">Soft Skills Certification</div>
+        <a href="./Infosys.jpg" target="_blank" class="cert-btn">View Certificate</a>
+      </div>
 
-            <div class="certificate-card">
-                <h3>Infosys BPM Training</h3>
-                <p>Soft Skills Certification</p>
-                 <a href="./Infosys.jpg"target="_blank"class="cert-btn"> View Certificate </a>
-            </div>
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fas fa-table"></i></div>
+        <h3>Advanced Excel</h3>
+        <div class="issuer">Certification</div>
+        <a href="./adexecel.jpg" target="_blank" class="cert-btn">View Certificate</a>
+      </div>
 
-            <div class="certificate-card">
-                <h3>Advanced Excel</h3>
-                <p>Certification</p>
-                 <a href="./adexecel.jpg"target="_blank"class="cert-btn"> View Certificate </a>
-            </div>
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fas fa-medal"></i></div>
+        <h3>ICAIMBE 2023</h3>
+        <div class="issuer">Participation Certificate</div>
+        <a href="./ICAIMBE.jpg" target="_blank" class="cert-btn">View Certificate</a>
+      </div>
 
-            <div class="certificate-card">
-                <h3>ICAIMBE 2023</h3>
-                <p>Participation Certificate</p>
-                 <a href="./ICAIMBE.jpg"target="_blank"class="cert-btn"> View Certificate </a>
-            </div>
+    </div>
+  </div>
+</section>
 
+<hr class="divider"/>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <h2 class="section-title">Contact Me</h2>
+    <p class="section-sub">Let's connect and build something great</p>
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <h3>Get in Touch</h3>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <span>Email</span>
+            <p>dhanusha.selvaraj05@gmail.com</p>
+          </div>
         </div>
-
-    </section>
-
-    <!-- Internship -->
-    <section class="section">
-
-        <h2 class="section-title">Internship Experience</h2>
-
-        <div class="internship-card">
-
-            <h3>Leap Green Energy Ltd, Coimbatore</h3>
-
-            <p>
-                Completed internship training and gained practical
-                exposure to workflow processes, communication
-                and professional business operations.
-            </p>
-
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <span>Location</span>
+            <p>Salem, Tamil Nadu, India</p>
+          </div>
         </div>
-
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="section">
-
-        <h2 class="section-title">Contact Me</h2>
-
-        <div class="contact-container">
-
-            <div class="contact-card">
-
-                <p>
-                    <i class="fas fa-envelope"></i>
-                    dhanusha.selvaraj05@gmail.com
-                </p>
-
-                <p>
-                    <i class="fas fa-location-dot"></i>
-                    Salem, Tamil Nadu
-                </p>
-
-                <div class="social-links">
-
-                    <a href="#">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-
-                    <a href="#">
-                        <i class="fab fa-github"></i>
-                    </a>
-
-                    <a href="#">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-
-                </div>
-
-            </div>
-
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-briefcase"></i></div>
+          <div>
+            <span>Current Role</span>
+            <p>Python Full Stack Developer at E2E Company</p>
+          </div>
         </div>
+        <div class="social-row">
+          <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-github"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <h3>Send a Message</h3>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Enter your name"/>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="Enter your email"/>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Write your message..."></textarea>
+        </div>
+        <button class="submit-btn">Send Message <i class="fas fa-paper-plane" style="margin-left:0.5rem;"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
 
-    </section>
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>Dhanusha S</span> · Python Full Stack Developer · Crafted with <span style="color:#e05;">♥</span></p>
+</footer>
 
-    <!-- Footer -->
-    <footer>
+<script>
+  function openMenu() {
+    document.getElementById('mobileNav').classList.add('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileNav').classList.remove('open');
+  }
 
-        <p>
-            © 2026 Dhanusha S | Python Full Stack Developer
-        </p>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
 
-    </footer>
-
-    <script src="script.js"></script>
+  document.querySelectorAll('.project-card, .cert-card, .edu-card, .exp-card, .skill-pill, .about-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
 
 </body>
 </html>
